@@ -1,0 +1,14 @@
+# Music Files Directory
+
+Place your audio files here (mp3, wav, ogg, etc.)
+
+Files in this directory will be served statically and accessible at:
+/music/your-file-name.mp3
+
+Example usage in React:
+
+```tsx
+<audio controls>
+  <source src="/music/song.mp3" type="audio/mpeg" />
+</audio>
+```
