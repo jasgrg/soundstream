@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import { usePlayer } from "../../context/PlayerContext";
 import styles from "./MusicCard.module.scss";
 
 interface MusicCardProps {
@@ -12,6 +13,26 @@ const MusicCard: React.FC<MusicCardProps> = ({ title, artist, filePath }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const globalPlayer = usePlayer();
+
+  useEffect(() => {
+    // Register this audio element with the global player when it starts playing
+    if (isPlaying) {
+      globalPlayer.setCurrentTrack({ title, artist, filePath });
+      globalPlayer.setAudioRef(audioRef);
+      globalPlayer.setIsPlaying(true);
+    }
+  }, [isPlaying, title, artist, filePath, globalPlayer]);
+
+  useEffect(() => {
+    // Update global player state
+    globalPlayer.setCurrentTime(currentTime);
+  }, [currentTime, globalPlayer]);
+
+  useEffect(() => {
+    // Update global player state
+    globalPlayer.setDuration(duration);
+  }, [duration, globalPlayer]);
 
   const togglePlay = () => {
     if (audioRef.current) {

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import NowPlaying from "../NowPlaying/NowPlaying";
 import styles from "./Header.module.scss";
 
 const Header: React.FC = () => {
@@ -9,6 +10,7 @@ const Header: React.FC = () => {
         <Link to="/" className={styles.logo}>
           <h1>SOUNDSTREAM</h1>
         </Link>
+        <NowPlaying />
         <nav className={styles.nav}>
           <ul className={styles.navList}>
             <li>
