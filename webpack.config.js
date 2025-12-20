@@ -8,7 +8,9 @@ module.exports = (env, argv) => {
     entry: "./src/index.tsx",
     output: {
       path: path.resolve(__dirname, "dist"),
-      filename: isProduction ? "[name].[contenthash].js" : "[name].js",
+      filename: isProduction
+        ? "[name].[contenthash].js"
+        : "/soundstream/[name].js",
       clean: true,
       publicPath: "/",
     },

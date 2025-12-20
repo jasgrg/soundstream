@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Public-facing website built with React and TypeScript",
   "main": "index.js",
-  "homepage": "https://jasgrg.github.io/soundstream",
+  "homepage": "https://jasgrg.github.io/soundstream/",
   "scripts": {
     "start": "webpack serve --mode development --open",
     "build": "webpack --mode production",
