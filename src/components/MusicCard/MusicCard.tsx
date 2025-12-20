@@ -23,6 +23,16 @@ const MusicCard: React.FC<MusicCardProps> = ({ title, artist, filePath }) => {
     }
   }, [isPlaying, title, artist, filePath, globalPlayer]);
 
+  // Sync local state with global player state
+  useEffect(() => {
+    // Only sync if this is the currently playing track
+    if (globalPlayer.currentTrack?.filePath === filePath) {
+      setIsPlaying(globalPlayer.isPlaying);
+      setCurrentTime(globalPlayer.currentTime);
+      setDuration(globalPlayer.duration);
+    }
+  }, [globalPlayer.isPlaying, globalPlayer.currentTime, globalPlayer.duration, globalPlayer.currentTrack, filePath]);
+
   const togglePlay = () => {
     if (audioRef.current) {
       if (isPlaying) {
