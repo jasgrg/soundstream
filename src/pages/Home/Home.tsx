@@ -24,7 +24,7 @@ const Home: React.FC = () => {
         <h2>Listen Now</h2>
         {musicLibrary.length > 0 ? (
           <div className={styles.musicGrid}>
-            {musicLibrary.map((track) => (
+            {musicLibrary.slice(0, 3).map((track) => (
               <MusicCard
                 key={track.id}
                 title={track.title}
