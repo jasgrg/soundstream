@@ -17,10 +17,18 @@ const MusicCard: React.FC<MusicCardProps> = ({ title, artist, filePath }) => {
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.pause();
+        setIsPlaying(false);
       } else {
-        audioRef.current.play();
+        audioRef.current
+          .play()
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch((error) => {
+            console.error("Error playing audio:", error);
+            setIsPlaying(false);
+          });
       }
-      setIsPlaying(!isPlaying);
     }
   };
 
