@@ -1,7 +1,12 @@
 .header {
-  background-color: #282c34;
+  background: rgba(15, 20, 32, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(100, 120, 255, 0.1);
   color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .container {
@@ -36,12 +41,28 @@
 }
 
 .navLink {
-  color: white;
+  color: rgba(228, 231, 240, 0.8);
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.2s;
+  transition: all 0.3s ease;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #6478ff 0%, #b47aff 100%);
+    transition: width 0.3s ease;
+  }
 
   &:hover {
-    color: #61dafb;
+    color: #ffffff;
+
+    &::after {
+      width: 100%;
+    }
   }
 }

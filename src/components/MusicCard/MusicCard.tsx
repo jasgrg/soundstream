@@ -41,6 +41,14 @@ const MusicCard: React.FC<MusicCardProps> = ({ title, artist, filePath }) => {
     setCurrentTime(0);
   };
 
+  const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newTime = parseFloat(e.target.value);
+    if (audioRef.current) {
+      audioRef.current.currentTime = newTime;
+      setCurrentTime(newTime);
+    }
+  };
+
   const formatTime = (time: number): string => {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
@@ -77,14 +85,15 @@ const MusicCard: React.FC<MusicCardProps> = ({ title, artist, filePath }) => {
           <span>{formatTime(currentTime)}</span>
           <span>{formatTime(duration)}</span>
         </div>
-        <div className={styles.progressBar}>
-          <div
-            className={styles.progress}
-            style={{
-              width: `${duration ? (currentTime / duration) * 100 : 0}%`,
-            }}
-          />
-        </div>
+        <input
+          type="range"
+          min="0"
+          max={duration || 0}
+          value={currentTime}
+          onChange={handleSeek}
+          className={styles.seekSlider}
+          step="0.1"
+        />
       </div>
 
       <audio
