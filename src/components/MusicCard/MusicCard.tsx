@@ -110,6 +110,13 @@ const MusicCard: React.FC<MusicCardProps> = ({ title, artist, filePath }) => {
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
         onEnded={handleEnded}
+        preload="metadata"
+        onError={(e) => {
+          console.error("Audio error for:", title, filePath, e);
+        }}
+        onCanPlay={() => {
+          console.log("Audio can play:", title, filePath);
+        }}
       />
     </div>
   );
