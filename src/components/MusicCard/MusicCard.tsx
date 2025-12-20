@@ -20,34 +20,26 @@ const MusicCard: React.FC<MusicCardProps> = ({ title, artist, filePath }) => {
     if (isPlaying) {
       globalPlayer.setCurrentTrack({ title, artist, filePath });
       globalPlayer.setAudioRef(audioRef);
-      globalPlayer.setIsPlaying(true);
     }
   }, [isPlaying, title, artist, filePath, globalPlayer]);
-
-  useEffect(() => {
-    // Update global player state
-    globalPlayer.setCurrentTime(currentTime);
-  }, [currentTime, globalPlayer]);
-
-  useEffect(() => {
-    // Update global player state
-    globalPlayer.setDuration(duration);
-  }, [duration, globalPlayer]);
 
   const togglePlay = () => {
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.pause();
         setIsPlaying(false);
+        globalPlayer.setIsPlaying(false);
       } else {
         audioRef.current
           .play()
           .then(() => {
             setIsPlaying(true);
+            globalPlayer.setIsPlaying(true);
           })
           .catch((error) => {
             console.error("Error playing audio:", error);
             setIsPlaying(false);
+            globalPlayer.setIsPlaying(false);
           });
       }
     }
@@ -55,19 +47,25 @@ const MusicCard: React.FC<MusicCardProps> = ({ title, artist, filePath }) => {
 
   const handleTimeUpdate = () => {
     if (audioRef.current) {
-      setCurrentTime(audioRef.current.currentTime);
+      const time = audioRef.current.currentTime;
+      setCurrentTime(time);
+      globalPlayer.setCurrentTime(time);
     }
   };
 
   const handleLoadedMetadata = () => {
     if (audioRef.current) {
-      setDuration(audioRef.current.duration);
+      const dur = audioRef.current.duration;
+      setDuration(dur);
+      globalPlayer.setDuration(dur);
     }
   };
 
   const handleEnded = () => {
     setIsPlaying(false);
     setCurrentTime(0);
+    globalPlayer.setIsPlaying(false);
+    globalPlayer.setCurrentTime(0);
   };
 
   const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
