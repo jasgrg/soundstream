@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const webpack = require("webpack");
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === "production";
@@ -86,6 +87,11 @@ module.exports = (env, argv) => {
             to: "music",
           },
         ],
+      }),
+      new webpack.DefinePlugin({
+        "process.env.PUBLIC_URL": JSON.stringify(
+          isProduction ? "/soundstream" : ""
+        ),
       }),
     ],
     devServer: {

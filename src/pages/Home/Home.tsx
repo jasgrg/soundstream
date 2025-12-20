@@ -29,7 +29,7 @@ const Home: React.FC = () => {
                 key={track.id}
                 title={track.title}
                 artist={track.artist}
-                filePath={`/music/${track.filename}`}
+                filePath={`${process.env.PUBLIC_URL || ''}/music/${track.filename}`}
               />
             ))}
           </div>

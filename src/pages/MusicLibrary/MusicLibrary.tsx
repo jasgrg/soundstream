@@ -20,7 +20,7 @@ const MusicLibrary: React.FC = () => {
             key={music.id}
             title={music.title}
             artist={music.artist}
-            filePath={`/music/${music.filename}`}
+            filePath={`${process.env.PUBLIC_URL || ''}/music/${music.filename}`}
           />
         ))}
       </div>
