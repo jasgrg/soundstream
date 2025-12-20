@@ -111,11 +111,19 @@ const MusicCard: React.FC<MusicCardProps> = ({ title, artist, filePath }) => {
         onLoadedMetadata={handleLoadedMetadata}
         onEnded={handleEnded}
         preload="metadata"
+        crossOrigin="anonymous"
         onError={(e) => {
-          console.error("Audio error for:", title, filePath, e);
+          const target = e.currentTarget as HTMLAudioElement;
+          console.error("Audio error for:", title);
+          console.error("File path:", filePath);
+          console.error("Error code:", target.error?.code);
+          console.error("Error message:", target.error?.message);
+        }}
+        onLoadStart={() => {
+          console.log("Loading audio:", title, filePath);
         }}
         onCanPlay={() => {
-          console.log("Audio can play:", title, filePath);
+          console.log("Audio ready to play:", title);
         }}
       />
     </div>
