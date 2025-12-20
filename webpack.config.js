@@ -10,7 +10,7 @@ module.exports = (env, argv) => {
       path: path.resolve(__dirname, "dist"),
       filename: isProduction ? "[name].[contenthash].js" : "[name].js",
       clean: true,
-      publicPath: "/soundstream/",
+      publicPath: isProduction ? "/soundstream/" : "/",
     },
     resolve: {
       extensions: [".tsx", ".ts", ".js", ".jsx"],

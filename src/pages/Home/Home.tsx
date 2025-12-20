@@ -11,7 +11,9 @@ const Home: React.FC = () => {
         <h1 className={styles.title}>Welcome to SoundStream</h1>
         <p className={styles.subtitle}>Your premier audio streaming platform</p>
         <div className={styles.actions}>
-          <button className={styles.primaryButton}>Get Started</button>
+          <Link to="/library">
+            <button className={styles.primaryButton}>Music Library</button>
+          </Link>
           <Link to="/about">
             <button className={styles.secondaryButton}>Learn More</button>
           </Link>
