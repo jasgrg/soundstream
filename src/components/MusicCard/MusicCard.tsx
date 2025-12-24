@@ -30,6 +30,9 @@ const MusicCard: React.FC<MusicCardProps> = ({ title, artist, filePath }) => {
       setIsPlaying(globalPlayer.isPlaying);
       setCurrentTime(globalPlayer.currentTime);
       setDuration(globalPlayer.duration);
+    } else if (globalPlayer.currentTrack && globalPlayer.currentTrack.filePath !== filePath) {
+      // If a different track is playing, pause this one
+      setIsPlaying(false);
     }
   }, [globalPlayer.isPlaying, globalPlayer.currentTime, globalPlayer.duration, globalPlayer.currentTrack, filePath]);
 
@@ -40,6 +43,11 @@ const MusicCard: React.FC<MusicCardProps> = ({ title, artist, filePath }) => {
         setIsPlaying(false);
         globalPlayer.setIsPlaying(false);
       } else {
+        // If there's another track playing, pause it first
+        if (globalPlayer.audioRef?.current && globalPlayer.currentTrack?.filePath !== filePath) {
+          globalPlayer.audioRef.current.pause();
+        }
+        
         audioRef.current
           .play()
           .then(() => {
