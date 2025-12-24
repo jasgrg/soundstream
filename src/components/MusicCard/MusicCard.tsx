@@ -25,11 +25,14 @@ const MusicCard: React.FC<MusicCardProps> = ({ title, artist, filePath }) => {
 
   // Sync local state with global player state
   useEffect(() => {
-    // Only sync if this is the currently playing track
+    // Only sync time and duration if this is the currently playing track
     if (globalPlayer.currentTrack?.filePath === filePath) {
-      setIsPlaying(globalPlayer.isPlaying);
       setCurrentTime(globalPlayer.currentTime);
       setDuration(globalPlayer.duration);
+      // Only sync isPlaying if controlled from NowPlaying bar (when audioRef matches)
+      if (globalPlayer.audioRef?.current === audioRef.current) {
+        setIsPlaying(globalPlayer.isPlaying);
+      }
     } else if (globalPlayer.currentTrack && globalPlayer.currentTrack.filePath !== filePath) {
       // If a different track is playing, pause this one
       if (audioRef.current && !audioRef.current.paused) {
